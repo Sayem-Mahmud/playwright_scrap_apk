@@ -1,3 +1,10 @@
 {
-  "ignore": ["./data/*", "./src/commons/*"]
+  "ignore": [
+    "./data/*",
+    "./src/commons/*",
+    "./metaEntry.txt",
+    "./metaTags.json",
+    "./metaEntryNot.txt",
+    "./hello.txt"
+  ]
 }
