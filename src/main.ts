@@ -59,9 +59,9 @@ const main = async () => {
           });
         });
       
-        const version = fileVersionsSizeDeveloper[0];
-        const fileSize = fileVersionsSizeDeveloper[1];
-        const developer = fileVersionsSizeDeveloper[2];
+        const version = fileVersionsSizeDeveloper[0] ||'';
+        const fileSize = fileVersionsSizeDeveloper[1] ||'';
+        const developer = fileVersionsSizeDeveloper[2] ||'';
 
         const parentInnerText = await page.$eval('.post_content.entry-content', (element) => {
           // Get all the child elements under the parent element
@@ -69,9 +69,9 @@ const main = async () => {
           // Filter out child elements with class "wp-caption" or "hatom-extra"
           const filteredChildren = children.filter((child) => !child.classList.contains('wp-caption') && !child.classList.contains('hatom-extra'));
           // Extract the innerText from the filtered child elements
-          const innerTextArray = filteredChildren.map((child) => child.textContent.trim());
+          const innerTextArray = filteredChildren.map((child) => child.textContent.trim() ||'');
           // Join the innerText values with commas
-          return innerTextArray.join(', ');
+          return innerTextArray.join(',');
         });
       
         console.log('innerTexts', parentInnerText); // Output the innerTexts to the console
@@ -89,7 +89,7 @@ const main = async () => {
         if (downloadButtons.length > 0) {
           await downloadButtons[0].click();
           // Wait for navigation to complete with an increased timeout value of 30 seconds
-          await page.waitForTimeout(2000); // Add a delay to allow time for new tab to open
+          await page.waitForTimeout(10000); // Add a delay to allow time for new tab to open
     
           // Get the newly opened page
           const pages = await context.pages();
@@ -117,7 +117,7 @@ const main = async () => {
         apkObj.downloadFile =newPageExtractedMetaTags
         metaTags.push(apkObj)
         }
-        page.waitForTimeout(5000)
+        // page.waitForTimeout(5000)
       }  
     }
   }
